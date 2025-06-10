@@ -69,67 +69,75 @@ const BookingForm = () => {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
 
   const onSubmit = async (data: FormData) => {
+    console.log("🚀 Form submission started!");
+    console.log("📝 Form data:", data);
+
     try {
-      console.log("Form data being submitted:", data);
+      console.log("✅ Entering try block...");
 
-      // Submit to Formspree
-      const formspreeResult = await handleFormspreeSubmit(data);
-      console.log("Formspree submission result:", formspreeResult);
+      // Prepare email data with enhanced formatting for Formspree
+      const emailData = {
+        ...data,
+        subject: `🌍 NEW BOOKING REQUEST - ${data.name}`,
+        _replyto: data.email,
+        _template: "table",
+        message: `
+BOOKING REQUEST DETAILS
+========================
 
-      // WhatsApp integration (always execute)
-      const whatsappMessage = `New Booking Request:%0A%0A
-        Name: ${data.name}%0A
-        Email: ${data.email}%0A
-        Phone: ${data.phone}%0A
-        Destination: ${data.destination || "Not specified"}%0A
-        Tour Type: ${data.tourType || "Not specified"}%0A
-        Participants: ${data.participants}%0A
-        Start Date: ${data.startDate}%0A
-        End Date: ${data.endDate}%0A
-        Message: ${data.message || "None"}`;
+CUSTOMER INFORMATION:
+• Full Name: ${data.name}
+• Email: ${data.email}
+• Phone: ${data.phone}
 
-      window.open(
-        `https://wa.me/255123456789?text=${encodeURIComponent(whatsappMessage)}`
-      );
+TRIP DETAILS:
+• Destination: ${data.destination || "Not specified"}
+• Tour Type: ${data.tourType || "Not specified"}
+• Number of Participants: ${data.participants} people
+• Start Date: ${data.startDate}
+• End Date: ${data.endDate}
 
+SPECIAL REQUESTS:
+${data.message || "No special requests"}
+
+========================
+Submitted on: ${new Date().toLocaleString()}
+From: Seven Serenity Safaris Website
+        `,
+      };
+
+      // Submit to Formspree (this will send you an email notification)
+      const formspreeResult = await handleFormspreeSubmit(emailData);
+      console.log("Email notification sent successfully:", formspreeResult);
+
+      // Show success message to user (no mention of email/WhatsApp)
       toaster.create({
-        title: "Request Sent Successfully!",
+        title: "Booking Request Submitted Successfully! ✅",
         description:
-          "Your booking request has been submitted and sent via WhatsApp. We'll contact you within 24 hours.",
+          "Thank you for your interest! We have received your booking request and will contact you within 24 hours to confirm details and provide a quote.",
         type: "success",
-        duration: 5000,
+        duration: 8000,
       });
+
+      // Reset form after successful submission
+      reset();
     } catch (error) {
       console.error("Form submission error:", error);
 
-      // Even if Formspree fails, still provide WhatsApp as backup
-      const whatsappMessage = `New Booking Request:%0A%0A
-        Name: ${data.name}%0A
-        Email: ${data.email}%0A
-        Phone: ${data.phone}%0A
-        Destination: ${data.destination || "Not specified"}%0A
-        Tour Type: ${data.tourType || "Not specified"}%0A
-        Participants: ${data.participants}%0A
-        Start Date: ${data.startDate}%0A
-        End Date: ${data.endDate}%0A
-        Message: ${data.message || "None"}`;
-
-      window.open(
-        `https://wa.me/255123456789?text=${encodeURIComponent(whatsappMessage)}`
-      );
-
+      // Show error message to user
       toaster.create({
-        title: "Request Sent via WhatsApp!",
+        title: "Submission Error",
         description:
-          "Form submission had an issue, but your request was sent via WhatsApp. We'll contact you soon.",
-        type: "success",
-        duration: 5000,
+          "There was an issue submitting your request. Please try again or contact us directly at info@sevenserenity.com or +255 679 728 749.",
+        type: "error",
+        duration: 10000,
       });
     }
   };
@@ -137,7 +145,7 @@ const BookingForm = () => {
   return (
     <Box maxW="48rem" mx="auto" p={12} borderRadius="lg" bg="white">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <SimpleGrid columns={{ base: 1, md: 2 }} spaceX={3}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
           <Field.Root invalid={!!errors.name} mb={6}>
             <Field.Label color="blackAlpha.800">Full Name</Field.Label>
             <Input
@@ -196,7 +204,7 @@ const BookingForm = () => {
               {errors.phone?.message}
             </Field.ErrorText>
           </Field.Root>
-          <Field.Root mb={6}>
+          <Field.Root mb={8}>
             <Field.Label color="blackAlpha.800">Destination</Field.Label>
             <Controller
               name="destination"
@@ -241,7 +249,7 @@ const BookingForm = () => {
             />
           </Field.Root>
         </SimpleGrid>
-        <Field.Root mb={6}>
+        <Field.Root mb={8}>
           <Field.Label color="blackAlpha.800">Tour Type</Field.Label>
           <Controller
             name="tourType"
@@ -282,7 +290,7 @@ const BookingForm = () => {
             )}
           />
         </Field.Root>
-        <SimpleGrid columns={{ base: 1, md: 3 }} spaceX={2}>
+        <SimpleGrid columns={{ base: 1, md: 3 }} gap={6}>
           <Field.Root invalid={!!errors.participants} mb={6}>
             <Field.Label color="blackAlpha.800">Participants</Field.Label>
             <Input
@@ -304,7 +312,9 @@ const BookingForm = () => {
             </Field.ErrorText>
           </Field.Root>
           <Field.Root invalid={!!errors.startDate} mb={6}>
-            <Field.Label color="blackAlpha.800">Start Date</Field.Label>
+            <Field.Label color="blackAlpha.800">
+              Start Date (DD/MM/YYYY)
+            </Field.Label>
             <InputGroup>
               <Input
                 type="date"
@@ -332,7 +342,9 @@ const BookingForm = () => {
             </Field.ErrorText>
           </Field.Root>
           <Field.Root invalid={!!errors.endDate} mb={6}>
-            <Field.Label color="blackAlpha.800">End Date</Field.Label>
+            <Field.Label color="blackAlpha.800">
+              End Date (DD/MM/YYYY)
+            </Field.Label>
             <InputGroup>
               <Input
                 type="date"
@@ -360,7 +372,7 @@ const BookingForm = () => {
             </Field.ErrorText>
           </Field.Root>
         </SimpleGrid>
-        <SimpleGrid columns={{ base: 1, md: 2 }} spaceX={2}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
           <Field.Root>
             <Field.Label color="blackAlpha.800">Special Requests</Field.Label>
             <Textarea
@@ -383,7 +395,7 @@ const BookingForm = () => {
           bg="green"
           w="full"
           loading={state.submitting}
-          loadingText="Submitting..."
+          loadingText="Submitting Request..."
           color="gray.50"
           mt={4}
           _hover={{ bg: "green.600" }}
