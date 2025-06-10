@@ -34,7 +34,13 @@ const FeaturedTours = () => (
       beach getaways and mountain adventures.
     </Text>
 
-    <SimpleGrid columns={[1, 2, 3]} gap={10} px={4}>
+    <SimpleGrid
+      columns={{ base: 1, md: 2, lg: 3 }}
+      gap={8}
+      px={4}
+      maxW="1200px"
+      mx="auto"
+    >
       {tours.map((tour) => (
         <Card.Root key={tour.id} borderRadius="xl" overflow="hidden">
           <Image
@@ -46,13 +52,15 @@ const FeaturedTours = () => (
           <CardBody>
             <Stack spaceX={4} spaceY={4}>
               <Heading size="md">{tour.title}</Heading>
-              <Text fontSize="sm" color="gray.600">
+              <Text fontSize="sm" color="gray.500">
                 {tour.duration}
               </Text>
               <Text fontSize="xl" fontWeight="bold">
                 {tour.price}
               </Text>
-              <Button colorScheme="green">Book Now</Button>
+              <Button colorScheme="green" asChild>
+                <a href="#booking">Book Now</a>
+              </Button>
             </Stack>
           </CardBody>
         </Card.Root>
