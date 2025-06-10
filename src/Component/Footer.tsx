@@ -79,19 +79,19 @@ const Footer = () => (
           <Flex align="start" gap={3}>
             <MapPin size={20} color="#68D391" />
             <Text color="gray.300" _light={{ color: "gray.700" }}>
-              123 Safari Road, Arusha, Tanzania
+              13855 Bondeni street, Makongoro Road Arusha, Tanzania
             </Text>
           </Flex>
           <Flex align="center" gap={3}>
             <Phone size={20} color="#68D391" />
             <Text color="gray.300" _light={{ color: "gray.700" }}>
-              +255 123 456 789
+              +255 679 728 749
             </Text>
           </Flex>
           <Flex align="center" gap={3}>
             <Mail size={20} color="#68D391" />
             <Text color="gray.300" _light={{ color: "gray.700" }}>
-              info@sevenserenitysafaris.com
+              sevenserenitysafaris@gmail.com
             </Text>
           </Flex>
         </Flex>
