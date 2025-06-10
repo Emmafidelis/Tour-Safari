@@ -112,21 +112,21 @@ export default function Home() {
             <SimpleGrid columns={{ base: 1, md: 3 }} gap={8} w="full" mt={16}>
               <VStack gap={4} textAlign="center">
                 <Heading size="lg" color="yellow.400">
-                  500+
+                  Expert
                 </Heading>
-                <Text color="gray.300">Happy Travelers</Text>
+                <Text color="gray.300">Local Guides</Text>
               </VStack>
               <VStack gap={4} textAlign="center">
                 <Heading size="lg" color="yellow.400">
-                  15+
+                  Handpicked
                 </Heading>
-                <Text color="gray.300">Years Experience</Text>
+                <Text color="gray.300">Destinations</Text>
               </VStack>
               <VStack gap={4} textAlign="center">
                 <Heading size="lg" color="yellow.400">
-                  50+
+                  Authentic
                 </Heading>
-                <Text color="gray.300">Tour Packages</Text>
+                <Text color="gray.300">Experiences</Text>
               </VStack>
             </SimpleGrid>
           </Box>
