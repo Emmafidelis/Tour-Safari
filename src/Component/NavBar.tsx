@@ -50,36 +50,38 @@ const Navbar = () => {
         borderColor: "gray.700",
       }}
     >
-      <Flex
-        as="nav"
-        p={4}
-        justify="space-between"
-        align="center"
-        maxW="1200px"
-        mx="auto"
-        w="100%"
-      >
-        <Link
-          href="/"
-          _hover={{
-            textDecoration: "none",
-            transform: "scale(1.05)",
-          }}
-          transition="all 0.2s ease-in-out"
-          ml={2}
-        >
-          <Image
-            src="/images/WhatsApp Image 2025-05-02 at 10.26.35.jpeg"
-            alt="Safari Tanzania Logo"
-            h="45px"
-            w="auto"
-            objectFit="contain"
-            borderRadius="md"
-          />
-        </Link>
+      <Flex as="nav" p={4} align="center" maxW="1200px" mx="auto" w="100%">
+        {/* Logo - Fixed Left Side */}
+        <Flex align="center" flex="0 0 auto">
+          <Link
+            href="/"
+            _hover={{
+              textDecoration: "none",
+              transform: "scale(1.05)",
+            }}
+            transition="all 0.2s ease-in-out"
+          >
+            <Image
+              src="/images/WhatsApp Image 2025-05-02 at 10.26.35.jpeg"
+              alt="Seven Serenity Safaris Logo"
+              h="50px"
+              w="auto"
+              objectFit="contain"
+              borderRadius="md"
+            />
+          </Link>
+        </Flex>
 
-        {/* Desktop Navigation */}
-        <Flex display={{ base: "none", md: "flex" }} align="center" gap={6}>
+        {/* Spacer to push navigation to the right */}
+        <Box flex="9" />
+
+        {/* Desktop Navigation - Squeezed Right */}
+        <Flex
+          display={{ base: "none", md: "flex" }}
+          align="center"
+          gap={1}
+          flex="0 0 auto"
+        >
           {navItems.map((item) => (
             <Box
               key={item.name}
@@ -90,6 +92,10 @@ const Navbar = () => {
                 <Collapsible.Root open={activeDropdown === item.name}>
                   <Button
                     variant="ghost"
+                    size="sm"
+                    px={3}
+                    fontSize="sm"
+                    fontWeight="medium"
                     _hover={{
                       color: "green.600",
                       bg: "green.50",
@@ -160,10 +166,11 @@ const Navbar = () => {
               ) : (
                 <Link
                   href={item.link}
-                  px={4}
+                  px={3}
                   py={2}
                   borderRadius="md"
                   fontWeight="medium"
+                  fontSize="sm"
                   _hover={{
                     color: "green.600",
                     bg: "green.50",
