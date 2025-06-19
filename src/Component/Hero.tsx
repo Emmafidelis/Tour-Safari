@@ -70,10 +70,10 @@ const Hero = () => {
             lineHeight="1.2"
           >
             <Box as="span" display="block">
-              Discover the Magic of
+              Tanzania Safari Tours &
             </Box>
             <Box as="span" display="block">
-              Tanzania
+              Wildlife Adventures
             </Box>
           </Heading>
 
@@ -83,9 +83,11 @@ const Hero = () => {
             mb={8}
             maxW="2xl"
             mx="auto"
+            as="p"
           >
-            Experience unforgettable safaris, pristine beaches, and the majestic
-            Kilimanjaro with our expert guides.
+            Experience authentic Tanzania safari tours with Seven Serenity
+            Safaris. Expert-guided wildlife adventures, Serengeti safaris,
+            Kilimanjaro trekking, and Zanzibar beach getaways await you.
           </Text>
 
           <Flex gap={4} justify="center" wrap="wrap">
