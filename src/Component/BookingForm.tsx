@@ -2,6 +2,7 @@
 import { useForm as Form } from "@formspree/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useState } from "react";
 import {
   Button,
   Input,
@@ -13,6 +14,9 @@ import {
   Portal,
   createListCollection,
   InputGroup,
+  VStack,
+  Text,
+  Heading,
 } from "@chakra-ui/react";
 import { toaster } from "@/components/ui/toaster";
 import { useForm, Controller } from "react-hook-form";
@@ -63,8 +67,121 @@ const tourTypes = createListCollection({
   ],
 });
 
+// Payment Section Component
+const PaymentSection = ({
+  showPayment,
+  onClose,
+  bookingData,
+}: {
+  showPayment: boolean;
+  onClose: () => void;
+  bookingData: FormData | null;
+}) => {
+  if (!showPayment) return null;
+
+  return (
+    <Box
+      position="fixed"
+      top="0"
+      left="0"
+      right="0"
+      bottom="0"
+      bg="blackAlpha.600"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      zIndex="1000"
+      p={4}
+    >
+      <Box
+        bg="white"
+        borderRadius="lg"
+        p={6}
+        maxW="lg"
+        w="full"
+        maxH="90vh"
+        overflowY="auto"
+        position="relative"
+        boxShadow="xl"
+      >
+        <Button
+          position="absolute"
+          top={4}
+          right={4}
+          variant="ghost"
+          size="sm"
+          onClick={onClose}
+          color="gray.500"
+          _hover={{ color: "gray.700" }}
+        >
+          ✕
+        </Button>
+
+        <VStack gap={4} align="stretch">
+          <VStack align="start" gap={2}>
+            <Heading size="md" color="gray.800">
+              Complete Your Payment
+            </Heading>
+            <Text fontSize="sm" color="gray.600">
+              {bookingData?.destination && `${bookingData.destination} - `}
+              {bookingData?.participants} participant(s)
+            </Text>
+          </VStack>
+
+          <Text color="gray.700">
+            Your booking request has been submitted successfully! To secure your
+            safari adventure, please complete the payment below using our
+            trusted partner Pesapal.
+          </Text>
+
+          <Box
+            border="1px solid"
+            borderColor="gray.200"
+            borderRadius="md"
+            p={4}
+            bg="gray.50"
+            textAlign="center"
+          >
+            <Text fontSize="sm" color="gray.600" mb={3}>
+              Secure Payment via Pesapal
+            </Text>
+            <iframe
+              width="200"
+              height="40"
+              src="https://store.pesapal.com/embed-code?pageUrl=https://store.pesapal.com/paymentforbooking"
+              style={{
+                border: "none",
+                borderRadius: "4px",
+                margin: "0 auto",
+                display: "block",
+              }}
+            />
+          </Box>
+
+          <Box bg="blue.50" p={4} borderRadius="md">
+            <Text fontSize="sm" color="blue.800">
+              <strong>What happens next?</strong>
+              <br />
+              1. Complete payment through Pesapal
+              <br />
+              2. Receive payment confirmation via email
+              <br />
+              3. Our team will contact you within 24 hours
+              <br />
+              4. Finalize your safari itinerary and arrangements
+            </Text>
+          </Box>
+        </VStack>
+      </Box>
+    </Box>
+  );
+};
+
 const BookingForm = () => {
   const [state, handleFormspreeSubmit] = Form("xqaqlwnv");
+  const [showPayment, setShowPayment] = useState(false);
+  const [submittedBookingData, setSubmittedBookingData] =
+    useState<FormData | null>(null);
   const {
     register,
     handleSubmit,
@@ -117,14 +234,18 @@ From: Seven Serenity Safaris Website
       const formspreeResult = await handleFormspreeSubmit(emailData);
       console.log("Email notification sent successfully:", formspreeResult);
 
-      // Show success message to user (no mention of email/WhatsApp)
+      // Show success message to user
       toaster.create({
         title: "Booking Request Submitted Successfully! ✅",
         description:
-          "Thank you for your interest! We have received your booking request and will contact you within 24 hours to confirm details and provide a quote.",
+          "Thank you for your interest! We have received your booking request. Please complete your payment to secure your booking.",
         type: "success",
-        duration: 8000,
+        duration: 6000,
       });
+
+      // Store booking data and show payment section
+      setSubmittedBookingData(data);
+      setShowPayment(true);
 
       // Reset form after successful submission
       reset();
@@ -405,6 +526,13 @@ From: Seven Serenity Safaris Website
           Submit Booking Request
         </Button>
       </form>
+
+      {/* Payment Section */}
+      <PaymentSection
+        showPayment={showPayment}
+        onClose={() => setShowPayment(false)}
+        bookingData={submittedBookingData}
+      />
     </Box>
   );
 };
