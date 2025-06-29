@@ -11,13 +11,24 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown, FaCreditCard } from "react-icons/fa";
 import { FiMenu as HamburgerIcon } from "react-icons/fi";
 import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const { open, onToggle } = useDisclosure();
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
+  // Function to handle Pesapal payment
+  const handlePesapalPayment = () => {
+    try {
+      // Open Pesapal payment page in a new window
+      const pesapalUrl = "https://store.pesapal.com/paymentforbooking";
+      window.open(pesapalUrl, "_blank", "noopener,noreferrer");
+    } catch (error) {
+      console.error("Error opening Pesapal payment:", error);
+    }
+  };
 
   const navItems = [
     { name: "Home", link: "/" },
@@ -32,6 +43,12 @@ const Navbar = () => {
     { name: "Activities", link: "#activities" },
     { name: "About", link: "#about" },
     { name: "Book Now", link: "#booking" },
+    {
+      name: "Pay Now",
+      link: "#",
+      onClick: handlePesapalPayment,
+      icon: FaCreditCard
+    },
   ];
 
   return (
@@ -163,6 +180,28 @@ const Navbar = () => {
                     </Stack>
                   </Collapsible.Content>
                 </Collapsible.Root>
+              ) : item.onClick ? (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  px={3}
+                  fontSize="sm"
+                  fontWeight="medium"
+                  _hover={{
+                    color: "green.600",
+                    bg: "green.50",
+                    transform: "translateY(-1px)",
+                  }}
+                  _active={{
+                    bg: "green.100",
+                    transform: "translateY(0px)",
+                  }}
+                  transition="all 0.2s ease-in-out"
+                  onClick={item.onClick}
+                  leftIcon={item.icon ? <Icon as={item.icon} /> : undefined}
+                >
+                  {item.name}
+                </Button>
               ) : (
                 <Link
                   href={item.link}
@@ -285,6 +324,26 @@ const Navbar = () => {
                       </Stack>
                     </Collapsible.Content>
                   </Collapsible.Root>
+                ) : item.onClick ? (
+                  <Button
+                    w="full"
+                    justifyContent="flex-start"
+                    variant="ghost"
+                    py={3}
+                    px={3}
+                    borderRadius="md"
+                    fontWeight="medium"
+                    _hover={{
+                      color: "green.600",
+                      bg: "green.50",
+                      transform: "translateX(4px)",
+                    }}
+                    transition="all 0.2s ease-in-out"
+                    onClick={item.onClick}
+                    leftIcon={item.icon ? <Icon as={item.icon} /> : undefined}
+                  >
+                    {item.name}
+                  </Button>
                 ) : (
                   <Link
                     href={item.link}
