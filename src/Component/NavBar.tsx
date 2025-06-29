@@ -10,14 +10,12 @@ import {
   Icon,
   Image,
 } from "@chakra-ui/react";
-import { useState } from "react";
-import { FaChevronDown, FaCreditCard } from "react-icons/fa";
+import { FaCreditCard } from "react-icons/fa";
 import { FiMenu as HamburgerIcon } from "react-icons/fi";
 import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
   const { open, onToggle } = useDisclosure();
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   // Function to handle Pesapal payment
   const handlePesapalPayment = () => {
@@ -32,14 +30,8 @@ const Navbar = () => {
 
   const navItems = [
     { name: "Home", link: "/" },
-    {
-      name: "Destinations",
-      subItems: ["Serengeti", "Zanzibar", "Kilimanjaro"],
-    },
-    {
-      name: "Tours",
-      subItems: ["Safari", "Beach", "Cultural"],
-    },
+    { name: "Destinations", link: "#tours" },
+    { name: "Tours", link: "#tours" },
     { name: "Activities", link: "#activities" },
     { name: "About", link: "#about" },
     { name: "Book Now", link: "#booking" },
@@ -100,87 +92,8 @@ const Navbar = () => {
           flex="0 0 auto"
         >
           {navItems.map((item) => (
-            <Box
-              key={item.name}
-              position="relative"
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              {item.subItems ? (
-                <Collapsible.Root open={activeDropdown === item.name}>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    px={3}
-                    fontSize="sm"
-                    fontWeight="medium"
-                    _hover={{
-                      color: "green.600",
-                      bg: "green.50",
-                      transform: "translateY(-1px)",
-                    }}
-                    _active={{
-                      bg: "green.100",
-                      transform: "translateY(0px)",
-                    }}
-                    transition="all 0.2s ease-in-out"
-                    onClick={() =>
-                      setActiveDropdown(
-                        activeDropdown === item.name ? null : item.name
-                      )
-                    }
-                  >
-                    {item.name}
-                    <Icon
-                      as={FaChevronDown}
-                      ml={2}
-                      transform={
-                        activeDropdown === item.name
-                          ? "rotate(180deg)"
-                          : "rotate(0deg)"
-                      }
-                      transition="transform 0.2s ease-in-out"
-                    />
-                  </Button>
-
-                  <Collapsible.Content
-                    position="absolute"
-                    bg="gray.100"
-                    boxShadow="xl"
-                    p={3}
-                    borderRadius="lg"
-                    minW="220px"
-                    zIndex={1}
-                    border="1px"
-                    borderColor="gray.200"
-                    _dark={{
-                      bg: "gray.700",
-                      borderColor: "gray.700",
-                    }}
-                    mt={2}
-                  >
-                    <Stack gap={1}>
-                      {item.subItems.map((sub) => (
-                        <Link
-                          key={sub}
-                          href={`#${sub.toLowerCase()}`}
-                          px={4}
-                          py={3}
-                          borderRadius="md"
-                          _hover={{
-                            bg: "green.50",
-                            color: "green.700",
-                            transform: "translateX(4px)",
-                          }}
-                          transition="all 0.2s ease-in-out"
-                          fontWeight="medium"
-                        >
-                          {sub}
-                        </Link>
-                      ))}
-                    </Stack>
-                  </Collapsible.Content>
-                </Collapsible.Root>
-              ) : item.onClick ? (
+            <Box key={item.name}>
+              {item.onClick ? (
                 <Button
                   variant="ghost"
                   size="sm"
@@ -271,63 +184,7 @@ const Navbar = () => {
           >
             {navItems.map((item) => (
               <Box key={item.name}>
-                {item.subItems ? (
-                  <Collapsible.Root open={activeDropdown === item.name}>
-                    <Button
-                      w="full"
-                      justifyContent="space-between"
-                      variant="ghost"
-                      _hover={{
-                        bg: "green.50",
-                        color: "green.600",
-                      }}
-                      _active={{
-                        bg: "green.100",
-                      }}
-                      transition="all 0.2s ease-in-out"
-                      onClick={() =>
-                        setActiveDropdown(
-                          activeDropdown === item.name ? null : item.name
-                        )
-                      }
-                    >
-                      {item.name}
-                      <Icon
-                        as={FaChevronDown}
-                        ml={2}
-                        transform={
-                          activeDropdown === item.name
-                            ? "rotate(180deg)"
-                            : "rotate(0deg)"
-                        }
-                        transition="transform 0.2s ease-in-out"
-                      />
-                    </Button>
-
-                    <Collapsible.Content pl={4} mt={2}>
-                      <Stack gap={1}>
-                        {item.subItems.map((sub) => (
-                          <Link
-                            key={sub}
-                            href={`#${sub.toLowerCase()}`}
-                            py={3}
-                            px={3}
-                            borderRadius="md"
-                            _hover={{
-                              color: "green.600",
-                              bg: "green.50",
-                              transform: "translateX(4px)",
-                            }}
-                            transition="all 0.2s ease-in-out"
-                            fontWeight="medium"
-                          >
-                            {sub}
-                          </Link>
-                        ))}
-                      </Stack>
-                    </Collapsible.Content>
-                  </Collapsible.Root>
-                ) : item.onClick ? (
+                {item.onClick ? (
                   <Button
                     w="full"
                     justifyContent="flex-start"
