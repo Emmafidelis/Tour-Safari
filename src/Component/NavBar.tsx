@@ -198,8 +198,11 @@ const Navbar = () => {
                   }}
                   transition="all 0.2s ease-in-out"
                   onClick={item.onClick}
-                  leftIcon={item.icon ? <Icon as={item.icon} /> : undefined}
+                  display="flex"
+                  alignItems="center"
+                  gap={2}
                 >
+                  {item.icon && <Icon as={item.icon} />}
                   {item.name}
                 </Button>
               ) : (
@@ -340,8 +343,11 @@ const Navbar = () => {
                     }}
                     transition="all 0.2s ease-in-out"
                     onClick={item.onClick}
-                    leftIcon={item.icon ? <Icon as={item.icon} /> : undefined}
+                    display="flex"
+                    alignItems="center"
+                    gap={2}
                   >
+                    {item.icon && <Icon as={item.icon} />}
                     {item.name}
                   </Button>
                 ) : (
