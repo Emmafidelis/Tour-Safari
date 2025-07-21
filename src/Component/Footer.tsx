@@ -85,7 +85,7 @@ const Footer = () => (
           <Flex align="center" gap={3}>
             <Phone size={20} color="#68D391" />
             <Text color="gray.300" _light={{ color: "gray.700" }}>
-              +255 679 728 749
+              +255 767 728 749
             </Text>
           </Flex>
           <Flex align="center" gap={3}>

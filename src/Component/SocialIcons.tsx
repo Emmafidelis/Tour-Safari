@@ -10,7 +10,7 @@ import {
 
 const SocialIcons = () => (
   <HStack spaceX={1} mt={2}>
-    <Link href="https://wa.me/255679728749">
+    <Link href="https://wa.me/255767728749">
       <IconButton
         aria-label="WhatsApp"
         colorScheme="whatsapp"
