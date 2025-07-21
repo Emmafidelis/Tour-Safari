@@ -5,7 +5,7 @@ const WhatsAppFloat = () => {
   const handleWhatsAppClick = () => {
     const message =
       "Hello! I'm interested in your safari tours. Can you provide more information?";
-    const phoneNumber = "255679728749"; // Replace with actual WhatsApp number
+    const phoneNumber = "255767728749"; // Replace with actual WhatsApp number
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
       message
     )}`;
