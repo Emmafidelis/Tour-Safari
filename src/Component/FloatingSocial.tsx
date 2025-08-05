@@ -69,7 +69,7 @@ const FloatingSocial = () => {
     try {
       const message =
         "Hello! I'm interested in your safari tours. Can you provide more information?";
-      const phoneNumber = "255679728749";
+      const phoneNumber = "255767728749";
       const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
         message
       )}`;
