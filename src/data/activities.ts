@@ -47,7 +47,7 @@ export const activities: Activity[] = [
     duration: "Flexible stay",
     intensity: "Low",
     locations: ["Zanzibar"],
-    image: "/images/Zanzibar.jpg",
+    image: "/images/image copy 5.png",
   },
   {
     id: 5,

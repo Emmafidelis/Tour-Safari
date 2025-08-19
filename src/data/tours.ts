@@ -17,7 +17,7 @@ export const tours: Tour[] = [
     id: 1,
     title: "Wildlife Safari Adventure",
     duration: "4 Days",
-    image: "/images/Lion-with-is-young-ones.jpeg",
+    image: "/images/WhatsApp Image 2025-05-02 at 10.26.33 (1).jpeg",
     description: "Experience Tanzania's incredible wildlife in their natural habitat with expert guides through Serengeti and Tarangire National Parks.",
     detailedInfo: {
       overview: "This 4-day wildlife safari takes you through Tanzania's most famous national parks, offering unparalleled opportunities to witness the Big Five and countless other species in their natural environment.",
@@ -79,7 +79,7 @@ export const tours: Tour[] = [
     id: 3,
     title: "Kilimanjaro Trekking",
     duration: "7 Days",
-    image: "/images/Treking.png",
+    image: "/images/image copy 2.png",
     description: "Conquer Africa's highest peak via the scenic Machame route, known for its diverse landscapes and high success rate.",
     detailedInfo: {
       overview: "This 7-day Kilimanjaro trek via the Machame route offers the best acclimatization profile and stunning scenery, maximizing your chances of reaching Uhuru Peak.",
