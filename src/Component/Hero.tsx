@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 const Hero = () => {
   const images = [
     "/images/Mountain-Kilimanjaro-with-Animals.jpeg",
-    "/images/Lion-with-is-young-ones.jpeg",
+    "/images/Lion-Eating-Prey.jpeg",
     "https://images.unsplash.com/photo-1621414050345-53db43f7e7ab",
   ];
 
@@ -70,7 +70,7 @@ const Hero = () => {
             lineHeight="1.2"
           >
             <Box as="span" display="block">
-              Tanzania Safari Tours &
+              Seven Serenity Safaris Tours &
             </Box>
             <Box as="span" display="block">
               Wildlife Adventures
